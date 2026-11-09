@@ -1,0 +1,2 @@
+# Solo se necesitan para generar los ejecutables.
+pyinstaller>=6.10

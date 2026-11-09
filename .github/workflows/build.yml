@@ -1,0 +1,50 @@
+name: Construir ejecutables
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  macos:
+    name: macOS (.app)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probar el motor de cálculo
+        run: python3 -m unittest discover -s tests -v
+      - name: Compilar, firmar y comprimir .app
+        # build_macos.sh parchea PyInstaller y firma de abajo hacia arriba,
+        # evitando el fallo de codesign --deep en versiones recientes de macOS.
+        run: |
+          python3 -m pip install --upgrade pip
+          ./build_macos.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: InvestigacionOperacionesByCarlosPardo-macOS
+          path: dist/*.zip
+
+  windows:
+    name: Windows (.exe)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "pyinstaller>=6.10"
+      - name: Probar el motor de cálculo
+        run: python -m unittest discover -s tests -v
+      - name: Compilar .exe
+        run: pyinstaller --noconfirm --clean --windowed --onefile --name InvestigacionOperaciones main.py
+      - name: Renombrar con el nombre visible
+        run: python tools/rename_exe.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: InvestigacionOperacionesByCarlosPardo-Windows
+          path: dist/*.exe
