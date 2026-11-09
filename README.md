@@ -62,14 +62,18 @@ Windows. Hay dos formas sencillas:
 3. Ejecute `build_windows.bat` con doble clic.
 4. El ejecutable queda en `dist\Investigación de Operaciones By Carlos Pardo.exe`.
 
-**Opción B — GitHub Actions (genera macOS y Windows automáticamente)**
+**Opción B — GitHub Actions (genera macOS y Windows automáticamente)** ✅ *en uso*
 
-El proyecto incluye `.github/workflows/build.yml`. Al subirlo a un repositorio de GitHub:
+Repositorio: <https://github.com/CarlosPrado78/InvestigacionOperacionesByCarlosPardo>
 
-1. Vaya a **Actions → Construir ejecutables → Run workflow**.
-2. Al terminar, descargue los artefactos:
-   - `InvestigacionOperacionesByCarlosPardo-macOS`
-   - `InvestigacionOperacionesByCarlosPardo-Windows`
+El proyecto incluye `.github/workflows/build.yml`, que se ejecuta solo con cada *push*:
+
+1. Vaya a **Actions → Construir ejecutables**.
+2. Al terminar, descargue los dos artefactos:
+   - `InvestigacionOperacionesByCarlosPardo-macOS` → `Investigación de Operaciones By Carlos Pardo (macOS).zip`
+   - `InvestigacionOperacionesByCarlosPardo-Windows` → `Investigación de Operaciones By Carlos Pardo.exe`
+
+Los artefactos se conservan **90 días** (hay que iniciar sesión en GitHub para descargarlos).
 
 ### Ejecutar desde el código fuente
 
